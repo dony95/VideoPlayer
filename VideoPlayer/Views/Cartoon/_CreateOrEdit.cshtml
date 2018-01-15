@@ -1,0 +1,93 @@
+﻿@model VideoPlayer.Model.Cartoon
+
+
+<div class="form-horizontal" asp-validation-summary="All">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div class="col-md-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name_ENG"></label>
+        <div class="col-md-10">
+            <input asp-for="Name_ENG" class="form-control" />
+            <span asp-validation-for="Name_ENG"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year"></label>
+        <div class="col-md-10">
+            <select asp-for="Year" asp-items="@(IEnumerable<SelectListItem>)ViewBag.Years" class="form-control" >
+                <option value="">--Select--</option>
+            </select>
+            <span asp-validation-for="Year"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Categories"></label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Categories, new MultiSelectList(Enum.GetValues(typeof(VideoPlayer.Model.Category)),
+            Model?.Categories), new { multiple = "multiple", @class = "form-control" })
+            <span asp-validation-for="Categories"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Language"></label>
+        <div class="col-md-10">
+            <select asp-for="Language" asp-items="@(IEnumerable<SelectListItem>)ViewBag.Languages" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+            <span asp-validation-for="Language"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <div class="col-md-10">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImdbURL"></label>
+        <div class="col-md-10">
+            <input asp-for="ImdbURL" class="form-control" />
+            <span asp-validation-for="ImdbURL"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImgURL"></label>
+        <div class="col-md-10">
+            <input asp-for="ImgURL" class="form-control" />
+            <span asp-validation-for="ImgURL"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="TrailerURL"></label>
+        <div class="col-md-10">
+            <input asp-for="TrailerURL" class="form-control" />
+            <span asp-validation-for="TrailerURL"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="SubtitleURL"></label>
+        <div class="col-md-10">
+            <input asp-for="SubtitleURL" class="form-control" />
+            <span asp-validation-for="SubtitleURL"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="VideoURL"></label>
+        <div class="col-md-10">
+            <input asp-for="VideoURL" class="form-control" />
+            <span asp-validation-for="VideoURL"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>

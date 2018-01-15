@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer", "VideoPlayer\VideoPlayer.csproj", "{21010C0E-13B9-4B74-8365-606B4F99A005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer.DAL", "VideoPlayer.DAL\VideoPlayer.DAL.csproj", "{30DB4BFF-8BD5-42AD-AF88-326B587E3466}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer.Model", "VideoPlayer.Model\VideoPlayer.Model.csproj", "{ABABAE80-1690-49D9-B432-9E7C4ADCECEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{21010C0E-13B9-4B74-8365-606B4F99A005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21010C0E-13B9-4B74-8365-606B4F99A005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21010C0E-13B9-4B74-8365-606B4F99A005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DB4BFF-8BD5-42AD-AF88-326B587E3466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DB4BFF-8BD5-42AD-AF88-326B587E3466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DB4BFF-8BD5-42AD-AF88-326B587E3466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DB4BFF-8BD5-42AD-AF88-326B587E3466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABABAE80-1690-49D9-B432-9E7C4ADCECEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABABAE80-1690-49D9-B432-9E7C4ADCECEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABABAE80-1690-49D9-B432-9E7C4ADCECEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABABAE80-1690-49D9-B432-9E7C4ADCECEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

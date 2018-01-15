@@ -1,0 +1,21 @@
+﻿@model VideoPlayer.Model.Cartoon
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit crtic</h2>
+
+<form asp-controller="Cartoon" asp-action="Edit" method="post">
+    <text>
+        @await Html.PartialAsync("_CreateOrEdit")
+        <input asp-for="ID" type="hidden" />
+    </text>
+</form>
+
+<div>
+    <a asp-action="Index">Back to list</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
