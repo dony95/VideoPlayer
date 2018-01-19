@@ -7,7 +7,7 @@ using VideoPlayer.Model;
 
 namespace VideoPlayer.DAL.Repository
 {
-    public class FilmRepository : RepositoryBase<Film>
+    public class FilmRepository : RepositoryBase<Film>, IRepositoryBase<Film>
     {
         public FilmRepository(VideoManagerDbContext context)
             : base(context) { }

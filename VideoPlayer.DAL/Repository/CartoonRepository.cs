@@ -4,12 +4,12 @@ using VideoPlayer.Model;
 
 namespace VideoPlayer.DAL.Repository
 {
-    public class CartoonRepository : RepositoryBase<Cartoon>
+    public class CartoonRepository : RepositoryBase<Cartoon>, IRepositoryBase<Cartoon>
     {
         public CartoonRepository(VideoManagerDbContext context)
             : base(context) { }
 
-        public List<Cartoon> GetList(ICartoonFilter filter)
+        public List<Cartoon> GetList(IFilmFilter filter)
         {
             var cartoonsQuery = this.DbContext.Cartoons
                 .AsQueryable();

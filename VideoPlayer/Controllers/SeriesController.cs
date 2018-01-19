@@ -7,112 +7,47 @@ using VideoPlayer.DAL.Repository;
 using VideoPlayer.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VideoPlayer.Models;
+using System.Text;
 
 namespace VideoPlayer.Controllers
 {
-    public class SeriesController : Controller
+    public class SeriesController : BaseController<Series>
     {
         public SeriesRepository SeriesRepository;
-
-        public SeriesController(SeriesRepository SeriesRepository)
+        public SeriesController(SeriesRepository SeriesRepository) : base(SeriesRepository)
         {
             this.SeriesRepository = SeriesRepository;
         }
 
-        public IActionResult Index()
-        {
-            FillDropDownValues(null);
-            return View(SeriesRepository.GetList(null));
-        }
+        //[HttpGet]
+        //[Route("film/Download/{id}")]
+        //[ActionName("Download")]
+        //public ActionResult DownloadEpisode(int? id = null)
+        //{
+        //    if (id == null)
+        //        return View("Index", SeriesRepository.GetList(null));
 
-        [HttpPost]
-        public ActionResult IndexAjax(FilmFilterModel model)
-        {
-            return PartialView("_IndexTable", this.SeriesRepository.GetList(model));
-        }
+        //    Episode video = SeriesRepository.FindEpisode(id.Value);
+        //    var fileContents = System.IO.File.ReadAllText(@"~/App_Data/script.bat");
 
-        public ActionResult Create()
-        {
-            FillDropDownValues(null);
-            return View();
-        }
+        //    if (video.SubtitleURL != null)
+        //    {
+        //        var subfileContents = System.IO.File.ReadAllText(@"~/App_Data/titlovi_skripta.bat");
+        //        subfileContents = subfileContents.Replace("#_URL", video.SubtitleURL.Replace("%", "%%"));
+        //        subfileContents = subfileContents.Replace("#_FILENAME", video.Name + ".srt");
+        //        fileContents = fileContents.Replace("#_TITLOVI", subfileContents);
+        //    }
+        //    else
+        //        fileContents = fileContents.Replace("#_TITLOVI", "");
 
-        [HttpPost]
-        public ActionResult Create(Series model)
-        {
-            if (ModelState.IsValid)
-            {
-                this.SeriesRepository.Add(model, autoSave: true);
+        //    fileContents = fileContents.Replace("#_LINK", video.VideoURL.Replace("%", "%%"));
+        //    if (video.SubtitleURL != null) fileContents = fileContents.Replace("#_SUB", "-- sub-file=\"c:\\Documents and settings\\%username%\\Documents\\titlovi\\"
+        //        + video.Name + ".srt\" --sout-transcode-senc=\"Eastern European(Windows-1250)\"");
+        //    else
+        //        fileContents = fileContents.Replace("#_SUB", "");
 
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                this.FillDropDownValues(model.Categories);
-                return View(model);
-            }
-        }
-
-        public ActionResult Edit(int id)
-        {
-            var model = SeriesRepository.Find(id);
-            FillDropDownValues(model.Categories);
-            return View(model);
-        }
-
-        [HttpPost]
-        [ActionName("Edit")]
-        public async Task<ActionResult> EditPostAsync(int id)
-        {
-            var model = this.SeriesRepository.Find(id);
-            var didUpdateModelSucceed = await this.TryUpdateModelAsync(model);
-
-            if (didUpdateModelSucceed && ModelState.IsValid)
-            {
-                this.SeriesRepository.Update(model, autoSave: true);
-                return RedirectToAction("Index");
-            }
-
-            this.FillDropDownValues(null);
-            return View(model);
-        }
-        public ActionResult Details(int? id = null)
-        {
-            if (id == null)
-                return View();
-            var model = SeriesRepository.Find(id.Value);
-            return View(model);
-        }
-
-        /*[HttpGet]
-        [Route("film/Download/{id}")]
-        [ActionName("Download")]
-        public ActionResult DownloadEpisode(int? id = null)
-        {
-            if (id == null)
-                return View("Index", SeriesRepository.GetList(null));
-
-            var video = SeriesRepository.Find(id.Value);
-            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/script.bat"));
-
-            if (video.SubtitleURL != null)
-            {
-                var subfileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/titlovi_skripta.bat"));
-                subfileContents = subfileContents.Replace("#_URL", video.SubtitleURL.Replace("%", "%%"));
-                subfileContents = subfileContents.Replace("#_FILENAME", video.Name + ".srt");
-                fileContents = fileContents.Replace("#_TITLOVI", subfileContents);
-            }
-            else
-                fileContents = fileContents.Replace("#_TITLOVI", "");
-
-            fileContents = fileContents.Replace("#_LINK", video.VideoURL.Replace("%", "%%"));
-            if (video.SubtitleURL != null) fileContents = fileContents.Replace("#_SUB", "-- sub-file=\"c:\\Documents and settings\\%username%\\Documents\\titlovi\\"
-                + video.Name + ".srt\" --sout-transcode-senc=\"Eastern European(Windows-1250)\"");
-            else
-                fileContents = fileContents.Replace("#_SUB", "");
-
-            return File(Encoding.ASCII.GetBytes(fileContents.Replace("192.168.1.8", "donyslav.ddns.net")), "text/plain", video.Name + ".bat");
-        }*/
+        //    return File(Encoding.ASCII.GetBytes(fileContents.Replace("192.168.1.8", "donyslav.ddns.net")), "text/plain", video.Name + ".bat");
+        //}
         public ActionResult CreateSeason(int seriesID)
         {
             FillDropDownValues(null);
@@ -164,7 +99,7 @@ namespace VideoPlayer.Controllers
             this.FillDropDownValues(null);
             return View(model);
         }*/
-        public void FillDropDownValues(List<Category> listCategories)
+        public new void FillDropDownValues(List<Category> listCategories)
         {
             var selectItemsYear = new List<SelectListItem>();
             for (var i = DateTime.Now.Year; i >= 1900; i--)

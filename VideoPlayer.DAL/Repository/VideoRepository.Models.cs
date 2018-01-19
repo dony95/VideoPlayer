@@ -12,10 +12,6 @@ namespace VideoPlayer.DAL.Repository
 		string Name { get; }
 		int Year { get; }
 		Category Category { get; }
-    }
-
-    public interface ICartoonFilter : IFilmFilter
-    {
         Language Language { get; }
     }
 }

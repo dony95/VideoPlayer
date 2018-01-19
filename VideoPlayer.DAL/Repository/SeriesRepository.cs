@@ -6,7 +6,7 @@ using VideoPlayer.Model;
 
 namespace VideoPlayer.DAL.Repository
 {
-    public class SeriesRepository : RepositoryBase<Series>
+    public class SeriesRepository : RepositoryBase<Series>, IRepositoryBase<Series>
     {
         public SeriesRepository(VideoManagerDbContext context)
             : base(context) { }

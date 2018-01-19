@@ -10,15 +10,6 @@ namespace VideoPlayer.Models
         public int Year { get; set; }
 
         public Category Category { get; set; }
-    }
-    public class CartoonFilterModel : ICartoonFilter
-    {
-        public string Name { get; set; }
-
-        public int Year { get; set; }
-
-        public Category Category { get; set; }
-
         public Language Language { get; set; }
     }
 }
