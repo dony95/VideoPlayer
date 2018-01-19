@@ -1,0 +1,61 @@
+﻿@model List<VideoPlayer.Model.Series>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel panel-heading">
+    <div class="row">
+        <div class="col-xs-8">
+            <h2>Pregled crtica</h2>
+        </div>
+        <div class="col-xs-4 text-right">
+            <a asp-action="Create" style="margin-top: 20px;" class="btn btn-success">Dodaj crtic</a>
+        </div>
+    </div>
+</div>
+@Html.Partial("_VideoFilter", new VideoPlayer.Models.FilmFilterModel())
+@Html.Partial("_IndexTable", Model)
+@section scripts{
+    <script type="text/javascript">
+            $(function () {
+                $(".video-filter .submit-button").on("click", function () {
+                    $.ajax({
+                        url: '@Url.Action("IndexAjax")',
+                        method: "POST",
+                        data: $(this).closest('form').serialize(),
+                        success: function (data) {
+                            $("#filmList").replaceWith(data);
+                        }
+                    });
+                });
+        });
+        $(function () {
+            $('#Name').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $('#filterButton').focus().click();
+                    return false;
+                }
+            });
+        });
+        function reset() {
+            $('#Name').val("");
+            $('#Year, #Category').select(0);
+        }
+        $(function () {
+            // Register for the change event of the drop down
+            $('#Year, #Category').change(function () {
+                // When the value changes, get send an AJAX request to the
+                // Filter action passing the selected value and update the
+                // contents of some result div with the partial html returned
+                // by the controller action
+                $('#filterButton').focus().click();
+                return false;
+            });
+        });
+    </script>
+    <style type="text/css">
+        div#divfilm {
+            color: black;
+        }
+    </style>
+}

@@ -1,0 +1,32 @@
+﻿@model List<VideoPlayer.Model.Film>
+
+<div id="filmList" class="row">
+    @foreach (var video in Model)
+    {
+
+        <div class="col-sm-4 " id="divfilm">
+            <a asp-action="Details" asp-controller="Film" asp-route-id="@video.ID">
+                <h2 style="height:3em">@video.Name (@video.Year.)</h2>
+            </a>
+            <div class="card" style="width:220px;">
+                <a asp-action="Details" asp-controller="Cartoon" asp-route-id="@video.ID">
+                    <img class="card-img-top" src=@video.ImgURL alt="@video.Name" style="width:220px; height:350px;">
+                </a>
+                <div class="card-body" style="height:150px;">
+                    @if (video.Description.Length > 100)
+                    {
+                        <p class="card-text">@video.Description.Substring(0, 100)...</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">@video.Description</p>
+                    }
+                    <div>
+                        <a href="@video.ImdbURL" target="_blank"><img src="https://i0.wp.com/net-worths.com/wp-content/themes/celebrity-net-worth/images/social_icons/imdb.png" /></a>
+                        <a href="@video.TrailerURL" target="_blank" style="padding-left:10px;"><img src="http://www.tempel.com/images/site/32px/youtube.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

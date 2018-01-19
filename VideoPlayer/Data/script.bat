@@ -1,10 +1,6 @@
 ﻿cd c:\Documents and settings\%username%\Documents\
 #_TITLOVI
-if exist vlc.loc goto start
-where /R C: vlc.exe > vlc.loc
-for /f %%i in ("vlc.loc") do set size=%%~zi
-if %size% gtr 0 GOTO start
-where /R D: vlc.exe > vlc.loc
-:start
-set /p texte=< vlc.loc
-start ""  "%texte%" -vvv #_LINK #_SUB
+FOR /F "usebackq tokens=3*" %%A IN (`REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\VLC media player" /v DisplayIcon`) DO (
+    set appdir=%%A %%B
+    )
+%appdir% -vvv #_LINK #_SUB

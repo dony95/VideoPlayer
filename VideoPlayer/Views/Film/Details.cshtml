@@ -1,0 +1,73 @@
+﻿@model VideoPlayer.Model.Film
+@{
+    ViewBag.Title = "Details";
+
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-danger" role="alert">Ne postoji odabrani crtic!</div>
+}
+else
+{
+    <div class="jumbotron">
+        <div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <h1>@Model.Name (@Model.Year.)</h1>
+                    <h3>(@Model.Name_ENG)</h3>
+                </div>
+                <div class="col-xs-4 text-right" style="padding-top:20px;">
+                    <a href="@Model.ImdbURL" target="_blank"><img src="https://bigsonia.com/wp-content/uploads/imbd-1.png" /></a>
+                    <a href="@Model.TrailerURL" target="_blank"><img src="http://luckyline.com/wp-content/plugins/accesspress-social-icons/icon-sets/png/set1/youtube.png" /></a>
+                </div>
+            </div>
+        </div>
+        <h4>
+            @foreach (var category in Model.Categories)
+            {
+                <span>@category.ToString()</span>
+            }
+        </h4>
+        <br />
+        <p>@Model.Description</p>
+    </div>
+    switch (Model.VideoURL.Substring(Model.VideoURL.Length - 3))
+    {
+        case "mkv":
+        case "avi":
+            <p>Browser ne podržava ovu vrstu datoteke, stoga je potrebno otvoriti u VLC media playeru. <br />Klik na čunj ispod za porkretanje filma.</p>
+            <br />
+            <a asp-action="Download" asp-controller="Film" asp-route-id="@Model.ID" class="classname">
+                <img width="100" height="100" src="https://lh3.ggpht.com/8BDSUv0P-kr9Kik7weOSet4Au_BlBpM0SmM8dUDdYQOceErGCLroJlhVoSL7cPP14YE=w300" />
+            </a>
+
+            <br />
+            <br />
+            <p>Nemaš VLC player?? Skini ga <a href="https://www.videolan.org/vlc/index.html" target="_blank">OVDJE</a></p>
+            break;
+        default:
+            <video width="600" controls>
+                <source src="@Model.VideoURL" type="video/mp4">
+            </video>
+            break;
+    }
+    <a asp-action="Edit" asp-route-id="@Model.ID">Uredi</a>
+}
+
+
+@section scripts
+    {
+    <style type="text/css">
+        a.classname {
+            color: red;
+            background-color: aqua;
+            display: block;
+            width: 150px;
+            height: 150px;
+            text-indent: -9999px; /* hides the link text */
+        }
+    </style>
+
+}
+

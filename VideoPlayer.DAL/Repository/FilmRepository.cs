@@ -18,8 +18,7 @@ namespace VideoPlayer.DAL.Repository
                 .AsQueryable();
             if (!string.IsNullOrWhiteSpace(filter?.Name))
                 videosQuery = videosQuery
-                    .Where(v => v.Name.ToLower().Contains(filter.Name.ToLower()))
-                    .Where(v => v.Name_ENG.ToLower().Contains(filter.Name.ToLower()));
+                    .Where(v => v.Name.ToLower().Contains(filter.Name.ToLower()) || v.Name_ENG.ToLower().Contains(filter.Name.ToLower()));
 
             if (filter != null && filter.Year != 0)
                 videosQuery = videosQuery

@@ -16,8 +16,7 @@ namespace VideoPlayer.DAL.Repository
 
             if (!string.IsNullOrWhiteSpace(filter?.Name))
                 cartoonsQuery = cartoonsQuery
-                    .Where(v => v.Name.ToLower().Contains(filter.Name.ToLower()))
-                    .Where(v => v.Name_ENG.ToLower().Contains(filter.Name.ToLower()));
+                    .Where(v => v.Name.ToLower().Contains(filter.Name.ToLower()) || v.Name_ENG.ToLower().Contains(filter.Name.ToLower()));
 
             if (filter != null && filter.Year != 0)
                 cartoonsQuery = cartoonsQuery
