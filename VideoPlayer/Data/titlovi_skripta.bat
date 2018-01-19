@@ -1,4 +1,5 @@
-﻿if not exist Titlovi mkdir Titlovi
+﻿cd c:\Documents and settings\%username%\Documents\
+if not exist Titlovi mkdir Titlovi
 cd titlovi
 set "URL=#_URL"
 set "SaveAs=#_FILENAME"
