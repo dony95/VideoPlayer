@@ -35,6 +35,11 @@ namespace VideoPlayer.DAL.Repository
             return seriesQuery.OrderByDescending(v => v.Year).ThenBy(v => v.Name).ToList();
         }
 
+        public Episode FindEpisode(int value)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddSeason(Season season, int seriesID, bool autoSave = false)
         {
             season.DateCreated = DateTime.Now;
@@ -49,5 +54,9 @@ namespace VideoPlayer.DAL.Repository
             if (autoSave)
                 this.Save();
         }
+
+
+
+
     }
 }

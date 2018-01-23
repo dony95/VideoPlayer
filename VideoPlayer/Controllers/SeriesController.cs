@@ -19,35 +19,35 @@ namespace VideoPlayer.Controllers
             this.SeriesRepository = SeriesRepository;
         }
 
-        //[HttpGet]
-        //[Route("film/Download/{id}")]
-        //[ActionName("Download")]
-        //public ActionResult DownloadEpisode(int? id = null)
-        //{
-        //    if (id == null)
-        //        return View("Index", SeriesRepository.GetList(null));
+        [HttpGet]
+        [Route("film/Download/{id}")]
+        [ActionName("Download")]
+        public ActionResult DownloadEpisode(int? id = null)
+        {
+            if (id == null)
+                return View("Index", SeriesRepository.GetList(null));
 
-        //    Episode video = SeriesRepository.FindEpisode(id.Value);
-        //    var fileContents = System.IO.File.ReadAllText(@"~/App_Data/script.bat");
+            Episode video = SeriesRepository.FindEpisode(id.Value);
+            var fileContents = System.IO.File.ReadAllText(@"~/App_Data/script.bat");
 
-        //    if (video.SubtitleURL != null)
-        //    {
-        //        var subfileContents = System.IO.File.ReadAllText(@"~/App_Data/titlovi_skripta.bat");
-        //        subfileContents = subfileContents.Replace("#_URL", video.SubtitleURL.Replace("%", "%%"));
-        //        subfileContents = subfileContents.Replace("#_FILENAME", video.Name + ".srt");
-        //        fileContents = fileContents.Replace("#_TITLOVI", subfileContents);
-        //    }
-        //    else
-        //        fileContents = fileContents.Replace("#_TITLOVI", "");
+            if (video.SubtitleURL != null)
+            {
+                var subfileContents = System.IO.File.ReadAllText(@"~/App_Data/titlovi_skripta.bat");
+                subfileContents = subfileContents.Replace("#_URL", video.SubtitleURL.Replace("%", "%%"));
+                subfileContents = subfileContents.Replace("#_FILENAME", video.Name + ".srt");
+                fileContents = fileContents.Replace("#_TITLOVI", subfileContents);
+            }
+            else
+                fileContents = fileContents.Replace("#_TITLOVI", "");
 
-        //    fileContents = fileContents.Replace("#_LINK", video.VideoURL.Replace("%", "%%"));
-        //    if (video.SubtitleURL != null) fileContents = fileContents.Replace("#_SUB", "-- sub-file=\"c:\\Documents and settings\\%username%\\Documents\\titlovi\\"
-        //        + video.Name + ".srt\" --sout-transcode-senc=\"Eastern European(Windows-1250)\"");
-        //    else
-        //        fileContents = fileContents.Replace("#_SUB", "");
+            fileContents = fileContents.Replace("#_LINK", video.VideoURL.Replace("%", "%%"));
+            if (video.SubtitleURL != null) fileContents = fileContents.Replace("#_SUB", "-- sub-file=\"c:\\Documents and settings\\%username%\\Documents\\titlovi\\"
+                + video.Name + ".srt\" --sout-transcode-senc=\"Eastern European(Windows-1250)\"");
+            else
+                fileContents = fileContents.Replace("#_SUB", "");
 
-        //    return File(Encoding.ASCII.GetBytes(fileContents.Replace("192.168.1.8", "donyslav.ddns.net")), "text/plain", video.Name + ".bat");
-        //}
+            return File(Encoding.ASCII.GetBytes(fileContents.Replace("192.168.1.8", "donyslav.ddns.net")), "text/plain", video.Name + ".bat");
+        }
         public ActionResult CreateSeason(int seriesID)
         {
             FillDropDownValues(null);

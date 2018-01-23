@@ -53,6 +53,7 @@ namespace VideoPlayer.Controllers
             }
         }
 
+        [Route("Edit/{id:int}")]
         public IActionResult Edit(int id)
         {
             var model = Repository.Find(id);
@@ -62,6 +63,7 @@ namespace VideoPlayer.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
+        [Route("Edit/{id:int}")]
         public async Task<IActionResult> EditPost(int id)
         {
             var model = this.Repository.Find(id);
@@ -85,7 +87,7 @@ namespace VideoPlayer.Controllers
         }
 
         [HttpGet]
-        [Route("Download/{id}")]
+        [Route("Download/{id:int}")]
         [ActionName("Download")]
         public virtual IActionResult Download(int? id = null)
         {

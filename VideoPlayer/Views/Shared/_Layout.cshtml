@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VideoPlayer</title>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -30,13 +30,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>*@
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>*@
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                    <li><a asp-area="" asp-controller="Cartoon" asp-action="Index">Cartoons</a></li>
-                    <li><a asp-area="" asp-controller="Film" asp-action="Index">Films</a></li>
-                    <li><a asp-area="" asp-controller="Series" asp-action="Index">Series</a></li>
+                    <li><a asp-area="" asp-controller="Film" asp-action="Index">FIlmovi</a></li>
+                    <li><a asp-area="" asp-controller="Cartoon" asp-action="Index">Crtici</a></li>
+                    <li><a asp-area="" asp-controller="Series" asp-action="Index">Serije</a></li>
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>

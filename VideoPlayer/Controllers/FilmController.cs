@@ -17,7 +17,7 @@ namespace VideoPlayer.Controllers
         public FilmController(FilmRepository repository) : base(repository) { this.FilmRepository = repository; }
 
         [HttpGet]
-        [Route("film/Download/{id}")]
+        [Route("film/Download/{id:int}")]
         [ActionName("DownloadFilm")]
         public override IActionResult Download(int? id = null)
         {

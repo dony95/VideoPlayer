@@ -20,7 +20,7 @@ namespace VideoPlayer.Controllers
         }
 
         [HttpGet]
-        [Route("Cartoon/Download/{id}")]
+        [Route("Cartoon/Download/{id:int}")]
         [ActionName("DownloadCartoon")]
         public override IActionResult Download(int? id = null)
         {
