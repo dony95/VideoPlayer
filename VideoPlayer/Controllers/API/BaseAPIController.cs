@@ -10,6 +10,9 @@ using VideoPlayer.Model;
 
 namespace VideoPlayer.Controllers.API
 {
+    [Produces("application/json")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize]
     public class BaseAPIController<TEntity> : Controller where TEntity : EntityBase
     {

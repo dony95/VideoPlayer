@@ -9,5 +9,9 @@ namespace VideoPlayer.Models
     {
         public string Username { get; set; }
         public string Email { get; set; }
+        public int UsernameHash
+        {
+            set => this.UsernameHash = Username.GetHashCode();
+        }
     }
 }

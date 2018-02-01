@@ -11,6 +11,10 @@ using System.Text;
 using VideoPlayer.Models;
 using Microsoft.AspNetCore.Identity;
 using VideoPlayer.Services;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace VideoPlayer
 {
@@ -30,8 +34,10 @@ namespace VideoPlayer
             services.AddScoped<FilmRepository>();
             services.AddScoped<CartoonRepository>();
             services.AddScoped<SeriesRepository>();
-            services.AddDbContext<VideoManagerDbContext>(options => 
-                options.UseSqlServer(Configuration["ConnectionStrings:remoteConn"]));
+            //services.AddDbContext<VideoManagerDbContext>(options =>
+            //    options.UseSqlServer(Configuration["ConnectionStrings:localConn"]));
+            services.AddDbContext<VideoManagerDbContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:PublishConn"]));
             services.AddMvc().AddJsonOptions(options => 
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -59,18 +65,36 @@ namespace VideoPlayer
                 .AddEntityFrameworkStores<VideoManagerDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddApiVersioning(options =>
+               {
+                   options.ReportApiVersions = true;
+                   options.AssumeDefaultVersionWhenUnspecified = true;
+                   options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 1);
+                   options.ApiVersionReader = new HeaderApiVersionReader("api-v");
+               });
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1.0", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Video API", Version = "v1.0" });
+                options.SwaggerDoc("v1.1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Video API", Version = "v1.1" });
+
+                options.DocInclusionPredicate((docName, apiDesc) =>
+                {
+                    var versions = apiDesc.ControllerAttributes()
+                                       .OfType<ApiVersionAttribute>()
+                                       .SelectMany(attr => attr.Versions);
+
+                    return versions.Any(v => $"v{v.ToString()}" == docName);
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, VideoManagerDbContext context)
         {
-            if (env.IsDevelopment())
-            {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-            }
-            else
-                app.UseExceptionHandler("/Home/Error");
 
             app.UseAuthentication();
             app.UseStaticFiles();
@@ -80,6 +104,12 @@ namespace VideoPlayer
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Video API V1.0");
+                c.SwaggerEndpoint("/swagger/v1.1/swagger.json", "Video API V1.1");
             });
         }
     }

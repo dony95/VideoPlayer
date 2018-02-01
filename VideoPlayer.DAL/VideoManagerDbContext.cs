@@ -7,17 +7,9 @@ namespace VideoPlayer.DAL
 {
     public partial class VideoManagerDbContext : IdentityDbContext<ApplicationUser>
     {
-        public VideoManagerDbContext()
-            : base()
-        {
-        }
+        public VideoManagerDbContext() : base() {}
 
         public VideoManagerDbContext(DbContextOptions<VideoManagerDbContext> context) : base(context) { }
-
-        public static VideoManagerDbContext Create()
-        {
-            return new VideoManagerDbContext();
-        }
 
         public DbSet<Series> Series { get; set; }
         public DbSet<Cartoon> Cartoons { get; set; }

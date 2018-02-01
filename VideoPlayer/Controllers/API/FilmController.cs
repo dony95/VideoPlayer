@@ -10,9 +10,18 @@ using VideoPlayer.Model;
 namespace VideoPlayer.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/Film")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class FilmController : BaseAPIController<Film>
     {
         public FilmController(FilmRepository repository) : base(repository) { }
+    }
+
+    [Produces("application/json")]
+    [ApiVersion("1.1")]
+    [Route("api/v{version:apiVersion}/film")]
+    public class FilmV1_1Controller : BaseAPIController<Film>
+    {
+        public FilmV1_1Controller(FilmRepository repository) : base(repository) { }
     }
 }

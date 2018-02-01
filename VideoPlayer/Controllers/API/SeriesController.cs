@@ -10,9 +10,18 @@ using VideoPlayer.Model;
 namespace VideoPlayer.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/Series")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class SeriesController : BaseAPIController<Series>
     {
         public SeriesController(SeriesRepository repository) : base(repository) { }
+    }
+
+    [Produces("application/json")]
+    [ApiVersion("1.1")]
+    [Route("api/v{version:apiVersion}/Series")]
+    public class SeriesV1_1Controller : BaseAPIController<Series>
+    {
+        public SeriesV1_1Controller(SeriesRepository repository) : base(repository) { }
     }
 }

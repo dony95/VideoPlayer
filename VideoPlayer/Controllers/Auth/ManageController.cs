@@ -522,7 +522,7 @@ namespace VideoPlayer.Controllers
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("LAB4.GAuth"),
+                _urlEncoder.Encode("VideoPlayer"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

@@ -8,13 +8,14 @@ using VideoPlayer.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VideoPlayer.Models;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace VideoPlayer.Controllers
 {
     public class SeriesController : BaseController<Series>
     {
         public SeriesRepository SeriesRepository;
-        public SeriesController(SeriesRepository SeriesRepository) : base(SeriesRepository)
+        public SeriesController(SeriesRepository SeriesRepository, ILogger<BaseController<Series>> logger) : base(SeriesRepository, logger)
         {
             this.SeriesRepository = SeriesRepository;
         }

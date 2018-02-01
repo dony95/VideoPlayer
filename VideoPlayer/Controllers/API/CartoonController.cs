@@ -10,7 +10,8 @@ using VideoPlayer.Model;
 namespace VideoPlayer.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/Cartoon")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CartoonController : BaseAPIController<Cartoon>
     {
         //public readonly CartoonRepository CartoonRepository;
@@ -75,7 +76,7 @@ namespace VideoPlayer.Controllers.API
 
         //    return CreatedAtAction("Get", new { id = cartoon.ID }, cartoon);
         //}
-        
+
         //// DELETE: api/ApiWithActions/5
         //[HttpDelete("{id}")]
         //public IActionResult Delete(int id)
@@ -96,5 +97,13 @@ namespace VideoPlayer.Controllers.API
 
         //    return Ok(cartoon);
         //}
+    }
+
+    [Produces("application/json")]
+    [ApiVersion("1.1")]
+    [Route("api/v{version:apiVersion}/cartoon")]
+    public class CartoonV1_1Controller : BaseAPIController<Cartoon>
+    {
+        public CartoonV1_1Controller(CartoonRepository repository) : base(repository) { }
     }
 }

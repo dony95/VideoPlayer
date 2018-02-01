@@ -8,26 +8,31 @@ using VideoPlayer.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VideoPlayer.Models;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace VideoPlayer.Controllers
 {
     public class BaseController<TEntity> : Controller where TEntity : class
     {
         IRepositoryBase<TEntity> Repository;
+        private readonly ILogger _logger;
 
-        public BaseController(IRepositoryBase<TEntity> repository)
+        public BaseController(IRepositoryBase<TEntity> repository, ILogger<BaseController<TEntity>> logger)
         {
             Repository = repository;
+            _logger = logger;
         }
         public IActionResult Index()
         {
             FillDropDownValues(null);
+            _logger.LogInformation("INdex", null);
             return View(Repository.GetList(null));
         }
 
         [HttpPost]
         public IActionResult IndexAjax(FilmFilterModel model)
         {
+            _logger.LogInformation("IndexAjaxsearch : ", model.Name, ", ", model.Category, ", ", model.Language, ", ", model.Year);
             return PartialView("_IndexTable", this.Repository.GetList(model));
         }
 
@@ -40,14 +45,16 @@ namespace VideoPlayer.Controllers
         [HttpPost]
         public IActionResult Create(TEntity model)
         {
+            Video video = model as Video;
             if (ModelState.IsValid)
             {
                 this.Repository.Add(model, autoSave: true);
-
+                _logger.LogInformation("Created : ", video.Name, ", ", video.ImdbURL);
                 return RedirectToAction("Index");
             }
             else
             {
+                _logger.LogError("Failed to Create", video.Name, ", ", video.ImdbURL);
                 this.FillDropDownValues(null);
                 return View(model);
             }
@@ -72,17 +79,24 @@ namespace VideoPlayer.Controllers
             if (didUpdateModelSucceed && ModelState.IsValid)
             {
                 this.Repository.Update(model, autoSave: true);
+                _logger.LogInformation("Edited : ", (model as Video).ID, ", ", (model as Video).Name);
                 return RedirectToAction("Index");
             }
 
             this.FillDropDownValues(null);
+            _logger.LogError("Failed to Edit", (model as Video).ID, ", ", (model as Video).Name);
             return View(model);
         }
         public IActionResult Details(int? id = null)
         {
             if (id == null)
+            {
+                _logger.LogError("Details, id == null", null);
                 return View();
+            }
+                
             var model = Repository.Find(id.Value);
+            _logger.LogInformation("Details : ", (model as Video).ID, ", ", (model as Video).Name);
             return View(model);
         }
 

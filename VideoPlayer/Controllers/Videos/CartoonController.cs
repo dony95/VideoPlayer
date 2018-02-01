@@ -1,30 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VideoPlayer.DAL.Repository;
-using VideoPlayer.Models;
 using VideoPlayer.Model;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using VideoPlayer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace VideoPlayer.Controllers
 {
-    public class FilmController : BaseController<Film>
+    public class CartoonController : BaseController<Cartoon>
     {
-        public FilmRepository FilmRepository;
-        public FilmController(FilmRepository repository) : base(repository) { this.FilmRepository = repository; }
+        public readonly CartoonRepository CartoonRepository;
+
+        public CartoonController(CartoonRepository repository, ILogger<BaseController<Cartoon>> logger) : base(repository, logger)
+        {
+            this.CartoonRepository = repository;
+        }
 
         [HttpGet]
-        [Route("film/Download/{id:int}")]
-        [ActionName("DownloadFilm")]
+        [Route("Cartoon/Download/{id:int}")]
+        [ActionName("DownloadCartoon")]
         public override IActionResult Download(int? id = null)
         {
             if (id == null)
-                return View("Index", FilmRepository.GetList(null));
+                return View("Index", CartoonRepository.GetList(null));
 
-            var video = FilmRepository.Find(id.Value);
+            var video = CartoonRepository.Find(id.Value);
             var fileContents = System.IO.File.ReadAllText(@"data/script.bat");
 
             if (video.SubtitleURL != null)
