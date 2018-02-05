@@ -12,7 +12,9 @@ namespace VideoPlayer.DAL.Repository
         public FilmRepository(VideoManagerDbContext context)
             : base(context) { }
 
-        public List<Film> GetList(IFilmFilter filter)
+        public FilmRepository():base(null) { }
+
+        public virtual List<Film> GetList(IFilmFilter filter)
         {
             var videosQuery = this.DbContext.Films
                 .AsQueryable();

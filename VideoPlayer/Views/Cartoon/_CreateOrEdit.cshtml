@@ -19,7 +19,7 @@
     <div class="form-group">
         <label asp-for="Year"></label>
         <div class="col-md-10">
-            <select asp-for="Year" asp-items="@(IEnumerable<SelectListItem>)ViewBag.Years" class="form-control" >
+            <select asp-for="Year" asp-items="@(IEnumerable<SelectListItem>)ViewBag.Years" class="form-control">
                 <option value="">--Select--</option>
             </select>
             <span asp-validation-for="Year"></span>
@@ -29,7 +29,7 @@
         <label asp-for="Categories"></label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Categories, new MultiSelectList(Enum.GetValues(typeof(VideoPlayer.Model.Category)),
-            Model?.Categories), new { multiple = "multiple", @class = "form-control" })
+                 Model?.Categories), new { multiple = "multiple", @class = "form-control" })
             <span asp-validation-for="Categories"></span>
         </div>
     </div>
@@ -82,6 +82,14 @@
         <div class="col-md-10">
             <input asp-for="VideoURL" class="form-control" />
             <span asp-validation-for="VideoURL"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GoogleDriveURL"></label>
+        <div class="col-md-10">
+            <input asp-for="GoogleDriveURL" class="form-control" />
+            <span asp-validation-for="GoogleDriveURL"></span>
         </div>
     </div>
 

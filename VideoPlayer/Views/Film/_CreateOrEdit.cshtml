@@ -2,13 +2,16 @@
 
 
 <div class="form-horizontal" asp-validation-summary="All">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <div class="col-md-10">
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name"></span>
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
         </div>
     </div>
+    
     <div class="form-group">
         <label asp-for="Name_ENG"></label>
         <div class="col-md-10">
@@ -29,63 +32,71 @@
         <label asp-for="Categories"></label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Categories, new MultiSelectList(Enum.GetValues(typeof(VideoPlayer.Model.Category)),
-            Model?.Categories), new { multiple = "multiple", @class = "form-control" })
+                 Model?.Categories), new { multiple = "multiple", @class = "form-control" })
             <span asp-validation-for="Categories"></span>
         </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="Description"></label>
-    <div class="col-md-10">
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description"></span>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <div class="col-md-10">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description"></span>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="ImdbURL"></label>
-    <div class="col-md-10">
-        <input asp-for="ImdbURL" class="form-control" />
-        <span asp-validation-for="ImdbURL"></span>
+    <div class="form-group">
+        <label asp-for="ImdbURL"></label>
+        <div class="col-md-10">
+            <input asp-for="ImdbURL" class="form-control" />
+            <span asp-validation-for="ImdbURL"></span>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="ListActors"></label>
-    <div class="col-md-10">
-        <input asp-for="ListActors" class="form-control" />
-        <span asp-validation-for="ListActors"></span>
+    <div class="form-group">
+        <label asp-for="ListActors"></label>
+        <div class="col-md-10">
+            <input asp-for="ListActors" class="form-control" />
+            <span asp-validation-for="ListActors"></span>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="ImgURL"></label>
-    <div class="col-md-10">
-        <input asp-for="ImgURL" class="form-control" />
-        <span asp-validation-for="ImgURL"></span>
+    <div class="form-group">
+        <label asp-for="ImgURL"></label>
+        <div class="col-md-10">
+            <input asp-for="ImgURL" class="form-control" />
+            <span asp-validation-for="ImgURL"></span>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="TrailerURL"></label>
-    <div class="col-md-10">
-        <input asp-for="TrailerURL" class="form-control" />
-        <span asp-validation-for="TrailerURL"></span>
+    <div class="form-group">
+        <label asp-for="TrailerURL"></label>
+        <div class="col-md-10">
+            <input asp-for="TrailerURL" class="form-control" />
+            <span asp-validation-for="TrailerURL"></span>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="SubtitleURL"></label>
-    <div class="col-md-10">
-        <input asp-for="SubtitleURL" class="form-control" />
-        <span asp-validation-for="SubtitleURL"></span>
+    <div class="form-group">
+        <label asp-for="SubtitleURL"></label>
+        <div class="col-md-10">
+            <input asp-for="SubtitleURL" class="form-control" />
+            <span asp-validation-for="SubtitleURL"></span>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <label asp-for="VideoURL"></label>
-    <div class="col-md-10">
-        <input asp-for="VideoURL" class="form-control" />
-        <span asp-validation-for="VideoURL"></span>
+    <div class="form-group">
+        <label asp-for="VideoURL"></label>
+        <div class="col-md-10">
+            <input asp-for="VideoURL" class="form-control" />
+            <span asp-validation-for="VideoURL"></span>
+        </div>
     </div>
-</div>
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Save" class="btn btn-default" />
+    <div class="form-group">
+        <label asp-for="GoogleDriveURL"></label>
+        <div class="col-md-10">
+            <input asp-for="GoogleDriveURL" class="form-control" />
+            <span asp-validation-for="GoogleDriveURL"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
     </div>
 </div>

@@ -14,6 +14,8 @@ namespace VideoPlayer.DAL
         public DbSet<Series> Series { get; set; }
         public DbSet<Cartoon> Cartoons { get; set; }
         public DbSet<Film> Films { get; set; }
+        public DbSet<Season> Seasons { get; set; }
+        public DbSet<Episode> Episodes { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

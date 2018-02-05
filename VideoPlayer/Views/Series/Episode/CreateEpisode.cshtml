@@ -1,0 +1,23 @@
+﻿@model VideoPlayer.Model.Episode
+@{
+    ViewData["Title"] = "CreateEpisode";
+}
+
+<h2>CreateEpisode</h2>
+<form asp-controller="Series" asp-action="CreateEpisode" method="post">
+    <text>
+        @await Html.PartialAsync("Episode/_CreateOrEditEpisode")
+        <input asp-for="SeasonId" type="hidden" />
+        <input asp-for="SeasonId" type="hidden" value="@ViewBag.seasonID" />
+    </text>
+</form>
+
+<div>
+    <a asp-action="Details" asp-route-id="@ViewBag.seriesID">Back to series</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,71 @@
+﻿@model List<VideoPlayer.Model.Season>
+
+@if (Model.Count > 0)
+{
+    int i = 0;
+    <ul class="nav nav-tabs">
+        @foreach (var season in Model)
+        {
+            string id = "season" + season.SeasonNumber;
+            string text = "Season " + season.SeasonNumber;
+            if (i == 0)
+            {
+                <li class="active">
+                    <a data-toggle="tab" href="#@id">@text</a>
+                </li>
+            }
+            else
+            {
+                <li><a data-toggle="tab" href="#@id">@text</a></li>
+            }
+            i++;
+        }
+    </ul>
+
+    i = 0;
+    <div class="tab-content">
+        @foreach (var season in Model)
+        {
+            string id = "season" + season.SeasonNumber;
+            string text = "Season " + season.SeasonNumber;
+            var episodeModel = season.Episodes;
+            if (episodeModel == null)
+            {
+                episodeModel = new List<VideoPlayer.Model.Episode>();
+            }
+
+            if (i == 0)
+            {
+                <div id="@id" class="tab-pane fade in active">
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-8"></div>
+                        <div class="col-xs-4 text-right">
+                            <a asp-action="CreateEpisode" asp-route-seriesID="@season.SeriesId" asp-route-seasonID="@season.ID" class="btn btn-success">Dodaj epizodu</a>
+                        </div>
+                    </div>
+                    @Html.Partial("Episode/_EpisodeList", episodeModel.ToList())
+                </div>
+            }
+            else
+            {
+                <div id="@id" class="tab-pane fade">
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-8"></div>
+                        <div class="col-xs-4 text-right">
+                            <a asp-action="CreateEpisode" asp-route-seriesID="@season.SeriesId" asp-route-seasonID="@season.ID" class="btn btn-success">Dodaj epizodu</a>
+                        </div>
+                    </div>
+                    @Html.Partial("Episode/_EpisodeList", episodeModel.ToList())
+                </div>
+            }
+            i++;
+
+        }
+    </div>
+}
+else
+{
+
+}

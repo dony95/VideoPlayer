@@ -1,4 +1,4 @@
-﻿
+﻿@model VideoPlayer.Model.Season
 @{
     ViewBag.Title = "Create";
 }
@@ -8,6 +8,7 @@
 <form asp-controller="Series" asp-action="CreateSeason" method="post">
     <text>
         @await Html.PartialAsync("Season/_CreateOrEditSeason")
+        <input asp-for="SeriesId" type="hidden" />
     </text>
 </form>
 

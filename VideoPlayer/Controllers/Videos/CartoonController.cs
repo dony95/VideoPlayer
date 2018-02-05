@@ -15,7 +15,7 @@ namespace VideoPlayer.Controllers
     {
         public readonly CartoonRepository CartoonRepository;
 
-        public CartoonController(CartoonRepository repository, ILogger<BaseController<Cartoon>> logger) : base(repository, logger)
+        public CartoonController(CartoonRepository repository) : base(repository)
         {
             this.CartoonRepository = repository;
         }

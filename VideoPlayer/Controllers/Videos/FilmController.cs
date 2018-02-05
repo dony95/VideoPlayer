@@ -15,7 +15,7 @@ namespace VideoPlayer.Controllers
     public class FilmController : BaseController<Film>
     {
         public FilmRepository FilmRepository;
-        public FilmController(FilmRepository repository, ILogger<BaseController<Film>> logger) : base(repository, logger) { this.FilmRepository = repository; }
+        public FilmController(FilmRepository repository) : base(repository) { this.FilmRepository = repository; }
 
         [HttpGet]
         [Route("film/Download/{id:int}")]

@@ -12,9 +12,10 @@ using VideoPlayer.Model;
 namespace VideoPlayer.DAL.Migrations
 {
     [DbContext(typeof(VideoManagerDbContext))]
-    partial class VideoManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180204154519_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

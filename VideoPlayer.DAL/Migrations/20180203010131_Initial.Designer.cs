@@ -12,8 +12,8 @@ using VideoPlayer.Model;
 namespace VideoPlayer.DAL.Migrations
 {
     [DbContext(typeof(VideoManagerDbContext))]
-    [Migration("20180122213044_Authentication")]
-    partial class Authentication
+    [Migration("20180203010131_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -144,6 +144,8 @@ namespace VideoPlayer.DAL.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("GoogleDriveURL");
+
                     b.Property<string>("ImdbURL");
 
                     b.Property<string>("ImgURL");
@@ -184,6 +186,8 @@ namespace VideoPlayer.DAL.Migrations
 
                     b.Property<int>("EpisodeNumber");
 
+                    b.Property<string>("GoogleDriveURL");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -217,6 +221,8 @@ namespace VideoPlayer.DAL.Migrations
                     b.Property<DateTime?>("DateModified");
 
                     b.Property<string>("Description");
+
+                    b.Property<string>("GoogleDriveURL");
 
                     b.Property<string>("ImdbURL");
 

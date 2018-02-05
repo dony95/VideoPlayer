@@ -38,6 +38,8 @@ namespace VideoPlayer.Model
         [Url]
         public string VideoURL { get; set; }
 
+        public string GoogleDriveURL { get; set; }
+
         [Display(Name = "Cover image URL")]
         [Url]
         public string ImgURL { get; set; }

@@ -17,6 +17,7 @@ namespace VideoPlayer.DAL.Repository
         public virtual TEntity Find(int id)
         {
             return this.DbContext.Set<TEntity>()
+                .AsNoTracking()
                 .Where(p => p.ID == id)
                 .FirstOrDefault();
         }

@@ -1,0 +1,48 @@
+﻿@model VideoPlayer.Model.Episode
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="_CreateOrEditEpisode">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EpisodeNumber" class="control-label"></label>
+                <input asp-for="EpisodeNumber" class="form-control" />
+                <span asp-validation-for="EpisodeNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubtitleURL" class="control-label"></label>
+                <input asp-for="SubtitleURL" class="form-control" />
+                <span asp-validation-for="SubtitleURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VideoURL" class="control-label"></label>
+                <input asp-for="VideoURL" class="form-control" />
+                <span asp-validation-for="VideoURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoogleDriveURL" class="control-label"></label>
+                <input asp-for="GoogleDriveURL" class="form-control" />
+                <span asp-validation-for="GoogleDriveURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

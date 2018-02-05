@@ -34,10 +34,12 @@ namespace VideoPlayer
             services.AddScoped<FilmRepository>();
             services.AddScoped<CartoonRepository>();
             services.AddScoped<SeriesRepository>();
-            //services.AddDbContext<VideoManagerDbContext>(options =>
-            //    options.UseSqlServer(Configuration["ConnectionStrings:localConn"]));
+            services.AddScoped<SeasonRepository>();
+            services.AddScoped<EpisodeRepository>();
             services.AddDbContext<VideoManagerDbContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:PublishConn"]));
+                options.UseSqlServer(Configuration["ConnectionStrings:localConn"]));
+            //services.AddDbContext<VideoManagerDbContext>(options =>
+            //options.UseSqlServer(Configuration["ConnectionStrings:PublishConn"]));
             services.AddMvc().AddJsonOptions(options => 
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

@@ -15,13 +15,17 @@ namespace VideoPlayer.Controllers
     public class SeriesController : BaseController<Series>
     {
         public SeriesRepository SeriesRepository;
-        public SeriesController(SeriesRepository SeriesRepository, ILogger<BaseController<Series>> logger) : base(SeriesRepository, logger)
+        public SeasonRepository SeasonRepository;
+        public EpisodeRepository EpisodeRepository;
+        public SeriesController(SeriesRepository SeriesRepository, SeasonRepository SeasonRepository, EpisodeRepository EpisodeRepository) : base(SeriesRepository)
         {
             this.SeriesRepository = SeriesRepository;
+            this.EpisodeRepository = EpisodeRepository;
+            this.SeasonRepository = SeasonRepository;
         }
 
         [HttpGet]
-        [Route("film/Download/{id}")]
+        [Route("series/Download/{id}")]
         [ActionName("Download")]
         public ActionResult DownloadEpisode(int? id = null)
         {
@@ -52,7 +56,8 @@ namespace VideoPlayer.Controllers
         public ActionResult CreateSeason(int seriesID)
         {
             FillDropDownValues(null);
-            return View("Season/Create");
+            var model = new Season() { SeriesId = seriesID };
+            return View("Season/Create", model);
         }
 
         [HttpPost]
@@ -60,7 +65,8 @@ namespace VideoPlayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.SeriesRepository.AddSeason(model, seriesID, autoSave: true);
+                model.SeriesId = seriesID;
+                this.SeasonRepository.Add(model, autoSave: true);
                 return RedirectToAction("Index");
             }
             else
@@ -70,36 +76,56 @@ namespace VideoPlayer.Controllers
             }
         }
 
-        public ActionResult EditSeason(int seasonid, int seriesid)
+        [HttpGet]
+        public ActionResult EditSeason(int seasonid)
         {
-            var series = SeriesRepository.Find(seriesid);
-            FillDropDownValues(series.Categories);
-            foreach (Season s in series.Seasons)
-                if (s.SeasonNumber == seasonid)
-                    return View(s);
-            return View();
+            var model = this.SeasonRepository.Find(seasonid);
+            this.FillDropDownValues(null);
+            return View(model);
         }
 
-        /*[HttpPost]
-        [ActionName("Edit")]
-        public ActionResult EditPostSeason(int seasonid, int seriesid)
+        [HttpPost]
+        [ActionName("EditSeason")]
+        public async Task<ActionResult> EditPostSeasonAsync(int seasonid, int seriesID)
         {
-            var series = this.SeriesRepository.Find(seriesid);
-            Season season = null;
-            foreach (Season s in series.Seasons)
-                if (s.SeasonNumber == seasonid)
-                    season = s;
-            var didUpdateModelSucceed = this.TryUpdateModel(season);
+            var model = this.SeasonRepository.Find(seasonid);
+            var didUpdateModelSucceed = await this.TryUpdateModelAsync(model);
 
             if (didUpdateModelSucceed && ModelState.IsValid)
             {
-                this.SeriesRepository.Update(model, autoSave: true);
-                return RedirectToAction("Index");
+                this.SeasonRepository.Update(model, autoSave: true);
+                return RedirectToAction("Details/"+seriesID);
             }
 
             this.FillDropDownValues(null);
             return View(model);
-        }*/
+        }
+
+        [HttpGet]
+        public IActionResult CreateEpisode(int seriesID, int seasonID)
+        {
+            ViewBag.seriesID = seriesID;
+            ViewBag.seasonID = seasonID;
+            var model = new Episode() { SeasonId = seasonID };
+            return View("Episode/CreateEpisode");
+        }
+
+        [HttpPost]
+        [ActionName("CreateEpisode")]
+        public IActionResult CreateEpisodePost(Episode model, int seriesID, int seasonID)
+        {
+            if (ModelState.IsValid)
+            {
+                this.EpisodeRepository.Add(model, autoSave: true);
+                return RedirectToAction("Details/"+ seriesID);
+            }
+            else
+            {
+                this.FillDropDownValues(null);
+                return View("Episode/CreateEpisode?seriesID="+ seriesID + "&seasonID=" + seasonID, model);
+            }
+        }
+
         public new void FillDropDownValues(List<Category> listCategories)
         {
             var selectItemsYear = new List<SelectListItem>();

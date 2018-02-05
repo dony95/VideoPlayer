@@ -11,9 +11,17 @@ namespace VideoPlayer.DAL.Repository
         public SeriesRepository(VideoManagerDbContext context)
             : base(context) { }
 
+        public override Series Find(int id)
+        {
+            return this.DbContext.Series
+                .Include(s => s.Seasons)
+                .ThenInclude(e => e.Episodes)
+                .Where(s => s.ID.Equals(id)).FirstOrDefault();
+        }
+
         public List<Series> GetList(IFilmFilter filter)
         {
-            var seriesQuery = this.DbContext.Series
+            var seriesQuery = this.DbContext.Series.Include(s => s.Seasons)
                 .AsQueryable();
             if (!string.IsNullOrWhiteSpace(filter?.Name))
                 seriesQuery = seriesQuery
@@ -55,8 +63,9 @@ namespace VideoPlayer.DAL.Repository
                 this.Save();
         }
 
-
-
-
+        public Season FindSeason(int seriesID, int seasonID)
+        {
+            return this.DbContext.Series.Include(s => s.Seasons).Where(s => s.ID.Equals(seriesID)).FirstOrDefault().Seasons.Where(s => s.ID == seasonID).FirstOrDefault();
+        }
     }
 }

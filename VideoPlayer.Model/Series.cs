@@ -85,6 +85,8 @@ namespace VideoPlayer.Model
         [Url]
         public string VideoURL { get; set; }
 
+        public string GoogleDriveURL { get; set; }
+
         [ForeignKey("Season")]
         public int SeasonId { get; set; }
         public virtual Season Season { get; set; }

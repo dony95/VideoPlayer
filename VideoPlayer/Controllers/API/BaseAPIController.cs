@@ -47,7 +47,7 @@ namespace VideoPlayer.Controllers.API
 
         // POST: api/Cartoon
         [HttpPost]
-        public IActionResult Post([FromBody]TEntity value)
+        public virtual IActionResult Post([FromBody]TEntity value)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace VideoPlayer.Controllers.API
         // PUT: api/Cartoon/5 
         //TODO: fixat put
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]TEntity value)
+        public virtual IActionResult Put(int id, [FromBody]TEntity value)
         {
             if (!ModelState.IsValid)
             {
